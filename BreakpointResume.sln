@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BreakpointResume", "BreakpointResume.csproj", "{E27F43EF-8495-4FD7-AFFF-38D678EE29FA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BreakpointResumeServer", "BreakpointResumeServer\BreakpointResumeServer.csproj", "{D2451E73-286C-4D62-B8ED-3F1C4C89E0AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BreakpointResumeApiServer", "..\BreakpointResumeApiServer\BreakpointResumeApiServer.csproj", "{5D47CFFD-7239-46DB-AFDA-B6E730CCFDB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{E27F43EF-8495-4FD7-AFFF-38D678EE29FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E27F43EF-8495-4FD7-AFFF-38D678EE29FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E27F43EF-8495-4FD7-AFFF-38D678EE29FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2451E73-286C-4D62-B8ED-3F1C4C89E0AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2451E73-286C-4D62-B8ED-3F1C4C89E0AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2451E73-286C-4D62-B8ED-3F1C4C89E0AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2451E73-286C-4D62-B8ED-3F1C4C89E0AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D47CFFD-7239-46DB-AFDA-B6E730CCFDB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D47CFFD-7239-46DB-AFDA-B6E730CCFDB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D47CFFD-7239-46DB-AFDA-B6E730CCFDB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D47CFFD-7239-46DB-AFDA-B6E730CCFDB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
