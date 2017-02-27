@@ -36,10 +36,10 @@ namespace BreakpointResumeApiServer.Controllers
         public void DownLoadBreak(string fileName)
         {
             MyLog4NetInfo.LogInfo("receive the paramas is :"+fileName);
-            File.WriteAllLines(System.Web.Hosting.HostingEnvironment.MapPath("~/")+"log.txt",new List<string>{"revice the params is:"+fileName});
-            HttpContextBase context = (HttpContextBase) Request.Properties["MS_HttpContext"];       
-            Stream iStream = null;
-
+            fileName = fileName.Substring(0,fileName.LastIndexOf('?'));
+            HttpContextBase context = (HttpContextBase) Request.Properties["MS_HttpContext"];
+            FileStream iStream = null;
+            
             // Buffer to read 10K bytes in chunk:
             byte[] buffer = new Byte[10240];
 
@@ -64,8 +64,10 @@ namespace BreakpointResumeApiServer.Controllers
 
                 // Total bytes to read:
                 dataToRead = iStream.Length;
-
+                MyLog4NetInfo.LogInfo("dataToRead is :"+dataToRead);
                 long p = 0;
+                context.Response.AddHeader("Accept-Ranges", "bytes");
+                MyLog4NetInfo.LogInfo("context.Request.Headers[\"Range\"] is "+ context.Request.Headers["Range"]);
                 if (context.Request.Headers["Range"] != null)
                 {
                     context.Response.StatusCode = 206;
@@ -75,10 +77,11 @@ namespace BreakpointResumeApiServer.Controllers
                 {
                     context.Response.AddHeader("Content-Range", "bytes " + p + "-" + ((long)(dataToRead - 1))+ "/" + dataToRead);
                 }
+                context.Response.Charset="";
                 context.Response.AddHeader("Content-Length", ((long)(dataToRead - p)).ToString());
                 context.Response.ContentType = "application/octet-stream";
                 context.Response.AddHeader("Content-Disposition", "attachment; filename=" + HttpUtility.UrlEncode(context.Request.ContentEncoding.GetBytes(filename)));
-
+               
                 iStream.Position = p;
                 dataToRead = dataToRead - p;
                 // Read the bytes.
