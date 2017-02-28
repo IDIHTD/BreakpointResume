@@ -99,6 +99,7 @@ namespace BreakpointResume
         {
             bool resumeDownload = IsResume(url, fileName);
             string tempFileName = fileName + ".temp";
+            string tempInfoFileName = fileName + ".temp" + ".info";
             bool isDownloadSuccessfully = false;
             FileMode fm = FileMode.Create;
             Stream stream = null;
@@ -119,7 +120,13 @@ namespace BreakpointResume
 
                 response = (HttpWebResponse)httpWebRequest.GetResponse();
                 stream = response.GetResponseStream();
-        
+                var  etag=GetEtag(response);
+                if (!File.Exists(tempInfoFileName)&&!string.IsNullOrEmpty(etag))
+                {
+                    var fileInfo=new FileStream(tempInfoFileName,fm);
+                    // fileInfo.Write();
+                }
+
                 double contentLength = DownloadManager.GetContentLength(response);
                 byte[] buffer = new byte[BufferSize];
                 long downloadedLength = 0;

@@ -1,0 +1,8 @@
+
+----------------------header--------------------------
+2017-02-28 14:00:16,738 [8] INFO  WebLogger - receive the paramas is :steup.exe?389331897
+2017-02-28 14:01:00,523 [8] INFO  WebLogger - after deal with the fileName is:C:\Users\zhaozz.MAHUI\Downloads\BreakpointResume_jb51\BreakpointResume\BreakpointResumeApiServer\FilesDir\steup.exe
+2017-02-28 14:01:07,131 [8] ERROR WebLogger - 下载文件出现了错误，错误信息：未能找到文件“C:\Users\zhaozz.MAHUI\Downloads\BreakpointResume_jb51\BreakpointResume\BreakpointResumeApiServer\FilesDir\steup.exe”。,错误堆栈：   在 System.IO.__Error.WinIOError(Int32 errorCode, String maybeFullPath)
+   在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
+   在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
+   在 BreakpointResumeApiServer.Controllers.HomeController.DownLoadBreak(String fileName) 位置 C:\Users\zhaozz.MAHUI\Downloads\BreakpointResume_jb51\BreakpointResume\BreakpointResumeApiServer\Controllers\HomeController.cs:行号 42,错误实例：

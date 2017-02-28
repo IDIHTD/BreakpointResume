@@ -14,7 +14,8 @@ namespace BreakpointResumeUploadClient
 {
     public partial class Form1 : Form
     {
-        private static string uploadUrl= "http://localhost:8085/api/home/GetResumFile";
+        private static string uploadUrl= "http://122.115.55.28:8085/api/home/GetResumFile";
+        //private static string uploadUrl = "http://localhost:8085/api/home/GetResumFile";
         public Form1()
         {
             InitializeComponent();
