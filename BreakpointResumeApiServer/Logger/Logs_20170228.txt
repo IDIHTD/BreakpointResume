@@ -6,3 +6,29 @@
    在 System.IO.FileStream.Init(String path, FileMode mode, FileAccess access, Int32 rights, Boolean useRights, FileShare share, Int32 bufferSize, FileOptions options, SECURITY_ATTRIBUTES secAttrs, String msgPath, Boolean bFromProxy, Boolean useLongPath, Boolean checkHost)
    在 System.IO.FileStream..ctor(String path, FileMode mode, FileAccess access, FileShare share)
    在 BreakpointResumeApiServer.Controllers.HomeController.DownLoadBreak(String fileName) 位置 C:\Users\zhaozz.MAHUI\Downloads\BreakpointResume_jb51\BreakpointResume\BreakpointResumeApiServer\Controllers\HomeController.cs:行号 42,错误实例：
+
+----------------------header--------------------------
+2017-02-28 15:50:49,421 [8] INFO  WebLogger - receive the paramas is :setup.exe?23232323
+2017-02-28 15:50:57,657 [8] INFO  WebLogger - after deal with the fileName is:C:\Users\zhaozz.MAHUI\Downloads\BreakpointResume_jb51\BreakpointResume\BreakpointResumeApiServer\FilesDir\setup.exe
+2017-02-28 15:51:30,626 [8] ERROR WebLogger - 下载文件出现了错误，错误信息：GetMD5HashFromFile() fail, error:未能找到文件“C:\Program Files (x86)\IIS Express\setup.exe”。,错误堆栈：   在 BreakpointResumeApiServer.Controllers.HomeController.GetMD5HashFromFile(String fileName) 位置 C:\Users\zhaozz.MAHUI\Downloads\BreakpointResume_jb51\BreakpointResume\BreakpointResumeApiServer\Controllers\HomeController.cs:行号 134
+   在 BreakpointResumeApiServer.Controllers.HomeController.DownLoadBreak(String fileName) 位置 C:\Users\zhaozz.MAHUI\Downloads\BreakpointResume_jb51\BreakpointResume\BreakpointResumeApiServer\Controllers\HomeController.cs:行号 42,错误实例：
+2017-02-28 15:51:36,247 [8] INFO  WebLogger - receive the paramas is :setup.exe?23232323
+2017-02-28 15:51:48,559 [8] INFO  WebLogger - after deal with the fileName is:C:\Users\zhaozz.MAHUI\Downloads\BreakpointResume_jb51\BreakpointResume\BreakpointResumeApiServer\FilesDir\setup.exe
+
+----------------------header--------------------------
+2017-02-28 15:52:48,812 [10] INFO  WebLogger - receive the paramas is :setup.exe?23232323
+2017-02-28 15:52:50,215 [10] INFO  WebLogger - after deal with the fileName is:C:\Users\zhaozz.MAHUI\Downloads\BreakpointResume_jb51\BreakpointResume\BreakpointResumeApiServer\FilesDir\setup.exe
+
+----------------------header--------------------------
+2017-02-28 15:55:35,725 [9] INFO  WebLogger - receive the paramas is :D:\a\b\setup.exe?23232323
+2017-02-28 15:55:38,793 [9] INFO  WebLogger - after deal with the fileName is:D:\a\b\setup.exe
+2017-02-28 15:55:45,912 [9] INFO  WebLogger - dataToRead is :112239458
+2017-02-28 15:55:46,879 [9] INFO  WebLogger - context.Request.Headers["Range"] is 
+
+----------------------header--------------------------
+2017-02-28 15:58:21,184 [12] INFO  WebLogger - receive the paramas is :D:\a\b\setup.exe?23232323
+2017-02-28 15:58:21,233 [12] INFO  WebLogger - after deal with the fileName is:D:\a\b\setup.exe
+2017-02-28 15:58:21,254 [12] ERROR WebLogger - 下载文件出现了错误，错误信息：GetMD5HashFromFile() fail, error:文件“D:\a\b\setup.exe”正由另一进程使用，因此该进程无法访问此文件。,错误堆栈：   在 BreakpointResumeApiServer.Controllers.HomeController.GetMD5HashFromFile(String fileName) 位置 C:\Users\zhaozz.MAHUI\Downloads\BreakpointResume_jb51\BreakpointResume\BreakpointResumeApiServer\Controllers\HomeController.cs:行号 134
+   在 BreakpointResumeApiServer.Controllers.HomeController.DownLoadBreak(String fileName) 位置 C:\Users\zhaozz.MAHUI\Downloads\BreakpointResume_jb51\BreakpointResume\BreakpointResumeApiServer\Controllers\HomeController.cs:行号 42,错误实例：
+
+----------------------footer--------------------------

@@ -66,7 +66,7 @@ namespace BreakpointResume
                     string newEtag = GetEtag(response);
                     if (File.Exists(tempFileName) && File.Exists(tempFileInfoName))
                     {
-                        string oldEtag = File.ReadAllText(tempFileInfoName);
+                        string oldEtag = File.ReadAllText(tempFileInfoName).Trim();
                         if (!string.IsNullOrEmpty(oldEtag) && !string.IsNullOrEmpty(newEtag) && newEtag == oldEtag)
                         {
                             resumeDowload = true;
@@ -121,10 +121,13 @@ namespace BreakpointResume
                 response = (HttpWebResponse)httpWebRequest.GetResponse();
                 stream = response.GetResponseStream();
                 var  etag=GetEtag(response);
-                if (!File.Exists(tempInfoFileName)&&!string.IsNullOrEmpty(etag))
+                if (File.Exists(tempInfoFileName)&&!string.IsNullOrEmpty(etag))
                 {
-                    var fileInfo=new FileStream(tempInfoFileName,fm);
-                    // fileInfo.Write();
+                    FileStream f=new FileStream(tempInfoFileName,FileMode.Create,FileAccess.Write);
+                    StreamWriter sw=new StreamWriter(f);
+                    sw.WriteLine(etag);
+                    sw.Close();
+                    f.Close();
                 }
 
                 double contentLength = DownloadManager.GetContentLength(response);
@@ -170,7 +173,7 @@ namespace BreakpointResume
                     isDownloadSuccessfully = true;
                 }
             }
-            catch
+            catch(Exception ex)
             {
                 // todo
             }

@@ -39,7 +39,7 @@ namespace BreakpointResumeApiServer.Controllers
             try
             {
                 string filename = Path.GetFileName(fileName);
-                var etag=GetMD5HashFromFile(filename);
+                var etag=GetMD5HashFromFile(fileName);
                 // Open the file.
                 iStream = new FileStream(fileName, FileMode.Open,
                    FileAccess.Read, System.IO.FileShare.Read);
