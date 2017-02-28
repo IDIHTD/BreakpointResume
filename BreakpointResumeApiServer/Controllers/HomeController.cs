@@ -13,24 +13,6 @@ namespace BreakpointResumeApiServer.Controllers
 {
     public class HomeController : ApiController
     {
-        //[HttpGet]
-        //[ActionName("download")]
-        //public HttpResponseMessage DownLoad(string fileName)
-        //{
-        //    HttpResponseMessage response = new HttpResponseMessage();
-
-        //    string customFileName = DateTime.Now.ToString("yyyyMMddHHmmss.rar");//客户端保存的文件名  
-
-        //    FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
-        //    response.Content = new StreamContent(fileStream);
-        //    response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment");
-        //    response.Content.Headers.ContentDisposition.FileName = customFileName;
-        //    response.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");  // 这句话要告诉浏览器要下载文件  
-        //    response.Content.Headers.ContentLength = new FileInfo(fileName).Length;
-        //    return response;
-        //}
-
-
         [HttpGet]
         [ActionName("DownLoadBreak")]
         public void DownLoadBreak(string fileName)
@@ -49,14 +31,9 @@ namespace BreakpointResumeApiServer.Controllers
             // Total bytes to read:
             long dataToRead;
 
-            // Identify the file to download including its path.
-           // string filepath = @"E:\software\SQL Server 2000 Personal Edition.ISO";
-
-            // Identify the file name.
-            string filename =Path.GetFileName(fileName);
-
             try
             {
+                string filename = Path.GetFileName(fileName);
                 // Open the file.
                 iStream = new FileStream(fileName, FileMode.Open,
                    FileAccess.Read, System.IO.FileShare.Read);
@@ -113,6 +90,7 @@ namespace BreakpointResumeApiServer.Controllers
             {
                 // Trap the error, if any.
                 context.Response.Write("Error : " + ex.Message);
+                MyLog4NetInfo.ErrorInfo(string.Format("下载文件出现了错误，错误信息：{0},错误堆栈：{1},错误实例：{2}",ex.Message,ex.StackTrace,ex.InnerException));
             }
             finally
             {
@@ -124,5 +102,85 @@ namespace BreakpointResumeApiServer.Controllers
                 context.Response.End();
             }
         }
+
+        [HttpGet]
+        public HttpResponseMessage GetResumFile()
+        {
+            //用于获取当前文件是否是续传。和续传的字节数开始点。
+            var md5str = HttpContext.Current.Request.QueryString["md5str"];
+            var saveFilePath = HttpContext.Current.Server.MapPath("~/FilesDir/") + md5str;
+            if (File.Exists(saveFilePath))
+            {
+                var fs =File.OpenWrite(saveFilePath);
+                var fslength = fs.Length.ToString();
+                fs.Close();
+                return new HttpResponseMessage { Content = new StringContent(fslength, System.Text.Encoding.UTF8, "text/plain") };
+            }
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+        public HttpResponseMessage Rsume()
+        {
+            var file = HttpContext.Current.Request.InputStream;
+            var filename = HttpContext.Current.Request.QueryString["filename"];
+            this.SaveAs(HttpContext.Current.Server.MapPath("~/FilesDir/") + filename, file);
+            HttpContext.Current.Response.StatusCode = 200;
+            // For compatibility with IE's "done" event we need to return a result as well as setting the context.response
+            return new HttpResponseMessage(HttpStatusCode.OK);
+        }
+
+
+        private void SaveAs(string saveFilePath, Stream stream)
+        {
+            long lStartPos = 0;
+            int startPosition = 0;
+            int endPosition = 0;
+            var contentRange = HttpContext.Current.Request.Headers["Content-Range"];
+            //bytes 10000-19999/1157632
+            if (!string.IsNullOrEmpty(contentRange))
+            {
+                contentRange = contentRange.Replace("bytes", "").Trim();
+                contentRange = contentRange.Substring(0, contentRange.IndexOf("/"));
+                string[] ranges = contentRange.Split('-');
+                startPosition = int.Parse(ranges[0]);
+                endPosition = int.Parse(ranges[1]);
+            }
+            FileStream fs;
+            if (File.Exists(saveFilePath))
+            {
+                fs = File.OpenWrite(saveFilePath);
+                lStartPos = fs.Length;
+
+            }
+            else
+            {
+                fs = new FileStream(saveFilePath, FileMode.Create);
+                lStartPos = 0;
+            }
+            if (lStartPos > endPosition)
+            {
+                fs.Close();
+                return;
+            }
+            else if (lStartPos < startPosition)
+            {
+                lStartPos = startPosition;
+            }
+            else if (lStartPos > startPosition && lStartPos < endPosition)
+            {
+                lStartPos = startPosition;
+            }
+            fs.Seek(lStartPos, SeekOrigin.Current);
+            byte[] nbytes = new byte[512];
+            int nReadSize = 0;
+            nReadSize = stream.Read(nbytes, 0, 512);
+            while (nReadSize > 0)
+            {
+                fs.Write(nbytes, 0, nReadSize);
+                nReadSize = stream.Read(nbytes, 0, 512);
+            }
+            fs.Close();
+        }
+
     }
 }

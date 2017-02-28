@@ -79,15 +79,16 @@ namespace BreakpointResume
             // 如果下面的连接不可用，请自行更换一个可用的下载链接
             // 如果下载太快，请更换一个大点的文件进行测试
             //string url = "http://download.firefox.com.cn/releases-sha2/stub/official/zh-CN/Firefox-latest.exe";
-           // string url = "http://down.360.cn/360sd/360sd_x64_std_5.0.0.7121A.exe";
+             string url = "http://down.360.cn/360sd/360sd_x64_std_5.0.0.7121A.exe";
             //string url = "http://localhost:8088/downloadHandler.ashx?fineName=D:\\PortableWCF\\UpLoadFile\\memex\\ccc\\Accessibility.dll";
-            //string url = "http://localhost:8085/api/home/DownLoadBreak?fileName=D:\\a\\b\\Accessibility.dll";
-           string url = "http://localhost:8085/api/home/DownLoadBreak?fileName=D:\\a\\b\\setup.exe";
+           // string url = "http://localhost:8085/api/home/DownLoadBreak?fileName=D:\\a\\b\\Accessibility.dll";
+            //string url = "http://localhost:8085/api/home/DownLoadBreak?fileName=D:\\a\\b\\setup.exe";
+            //string url = "http://localhost:8085/api/home/DownLoadBreak?fileName=D:\\a\\b\\TOPK_TO.rar";
             Random rdm = new Random();
             string s = rdm.Next().ToString();
             url += "?" + s;
 
-            _manager.DownloadFile(url, "setup.exe");
+            _manager.DownloadFile(url, "TOPK_TO.rar");
         }
 
         private void BtnOK_Click(object sender, EventArgs e)
